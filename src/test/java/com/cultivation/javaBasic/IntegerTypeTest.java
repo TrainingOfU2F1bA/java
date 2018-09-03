@@ -12,7 +12,6 @@ class IntegerTypeTest {
     void should_get_range_of_primitive_int_type() {
         final int maximum = 0x7fffffff;
         final int minimum = 0x80000000;
-
         // TODO: You should not write concrete number here. Please find a property or constant instead.
         // <!--start
         final int maximumSymbol = Integer.MAX_VALUE;
@@ -45,8 +44,8 @@ class IntegerTypeTest {
 
         // TODO: You should not write concrete number here. Please find a property or constant instead.
         // <!--start
-        final long maximumSymbol = 0;
-        final long minimumSymbol = 0;
+        final long maximumSymbol = Long.MAX_VALUE;
+        final long minimumSymbol = Long.MIN_VALUE;
         // --end-->
 
         assertEquals(maximumSymbol, maximum);
