@@ -29,7 +29,7 @@ class BooleanOperatorsTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        boolean[] expectedResult = {};
+        boolean[] expectedResult = {true,false,false,true,true,false,true,false,false,true,true,false,false,true};
         // --end-->
 
         assertArrayEquals(expectedResult, actualResults);
