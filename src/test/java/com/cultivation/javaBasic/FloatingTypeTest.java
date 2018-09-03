@@ -40,8 +40,8 @@ class FloatingTypeTest {
         final int integer = (int) floatingPointNumber;
 
         // TODO: Please change the result to pass the test.
-        // <!--start
-        final int expected = Integer.MAX_VALUE;
+        // <!--start_
+        final int expected = 2;
         // --end-->
 
         assertEquals(expected, integer);
