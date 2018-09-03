@@ -87,7 +87,7 @@ class IntegerTypeTest {
 
         // TODO: Please correct the value to pass the test.
         // <--start
-        final int expectedResult = 0;
+        final int expectedResult = Integer.MAX_VALUE;
         // --end-->
 
         assertEquals(expectedResult, theNumberWillUnderflow);
