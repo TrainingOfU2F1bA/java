@@ -170,7 +170,9 @@ class IntegerTypeTest {
     private int add(int left, int right) {
         // TODO: Please implement the method. Adding two numbers.
         // The method should throw ArithmeticException if overflow or underflow happens.
-        throw new NotImplementedException();
+        if (Math.max(left,right)==Integer.MAX_VALUE&&Math.min(left,right)>0) throw new ArithmeticException("Calculate underflow!");
+            if (Math.max(left,right)<0&&Math.max(left,right)==Integer.MIN_VALUE) throw new ArithmeticException("Calculate overflow!");
+            return left+right;
     }
 
     /*
