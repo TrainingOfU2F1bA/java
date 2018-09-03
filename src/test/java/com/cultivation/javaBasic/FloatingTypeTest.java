@@ -56,7 +56,7 @@ class FloatingTypeTest {
 
         // TODO: Please call some method to round the floating point number.
         // <!--start
-        final long rounded = BigDecimal.valueOf(floatingPointNumber).setScale(0,BigDecimal.ROUND_UP).longValue() ;
+        final long rounded =Math.round(floatingPointNumber);
         // --end-->
 
         assertEquals(3L, rounded);
@@ -65,13 +65,13 @@ class FloatingTypeTest {
     @SuppressWarnings("unused")
     private boolean isNan(double realNumber) {
         // TODO: please implement the method to pass the test.
-        throw new NotImplementedException();
+        return realNumber!=realNumber;
     }
 
     @SuppressWarnings("unused")
     private boolean isInfinity(double realNumber) {
         // TODO: please implement the method to pass the test.
-        throw new NotImplementedException();
+        return realNumber==Double.POSITIVE_INFINITY||realNumber==Double.NEGATIVE_INFINITY;
     }
 
     /*
