@@ -114,8 +114,8 @@ class IntegerTypeTest {
 
         // TODO: please modify the following lines to pass the test
         // <!--start
-        final double expectedResult1 = Double.POSITIVE_INFINITY;
-        final double expectedResult2 = Double.POSITIVE_INFINITY;
+        final double expectedResult1 = 0;
+        final double expectedResult2 = 3;
         // --end-->
 
         assertEquals(expectedResult1, result1, +1.0E-05);
@@ -125,7 +125,7 @@ class IntegerTypeTest {
     @Test
     void should_truncate_number_when_casting() {
         final int integer = 0x0123_4567;
-        final short smallerInteger = (short)integer;
+        final short smallerInteger = (short) integer;
 
         // TODO: please modify the following lines to pass the test
         // <!--start
@@ -170,9 +170,11 @@ class IntegerTypeTest {
     private int add(int left, int right) {
         // TODO: Please implement the method. Adding two numbers.
         // The method should throw ArithmeticException if overflow or underflow happens.
-        if (Math.max(left,right)==Integer.MAX_VALUE&&Math.min(left,right)>0) throw new ArithmeticException("Calculate underflow!");
-            if (Math.max(left,right)<0&&Math.max(left,right)==Integer.MIN_VALUE) throw new ArithmeticException("Calculate overflow!");
-            return left+right;
+        if (Math.max(left, right) == Integer.MAX_VALUE && Math.min(left, right) > 0)
+            throw new ArithmeticException("Calculate underflow!");
+        if (Math.max(left, right) < 0 && Math.max(left, right) == Integer.MIN_VALUE)
+            throw new ArithmeticException("Calculate overflow!");
+        return left + right;
     }
 
     /*
