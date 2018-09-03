@@ -56,10 +56,18 @@ class FloatingTypeTest {
 
         // TODO: Please call some method to round the floating point number.
         // <!--start
-        final long rounded =Math.round(floatingPointNumber);
+        final long rounded = getDoubleRounded(floatingPointNumber);
         // --end-->
 
         assertEquals(3L, rounded);
+    }
+
+    private long getDoubleRounded(double doubleValue) {
+        long longBits = Double.doubleToLongBits(doubleValue);
+        long isHalf = (longBits & 0x0004_0000_0000_0000l)>0?1l:0l;
+        long index = longBits & 0xfff0_0000_0000_0000l;
+        int sign = (longBits & 0x8000_0000_0000_0000l)!=0?-1:1;
+        return (long) (Double.longBitsToDouble(index)+sign*isHalf);
     }
 
     @SuppressWarnings("unused")
