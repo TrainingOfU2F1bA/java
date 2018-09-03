@@ -11,11 +11,11 @@ class FloatingTypeTest {
     @Test
     void should_not_get_rounded_result_if_convert_floating_number_to_integer() {
         final float floatingPointNumber = 2.75f;
-        final int integer = (int)floatingPointNumber;
+        final int integer = (int) floatingPointNumber;
 
         // TODO: Please change the result to pass the test.
         // <!--start
-        final int expected = Integer.MAX_VALUE;
+        final int expected = 2;
         // --end-->
 
         assertEquals(expected, integer);
@@ -37,7 +37,7 @@ class FloatingTypeTest {
     @Test
     void should_not_round_number_when_convert_to_integer() {
         final float floatingPointNumber = 2.75f;
-        final int integer = (int)floatingPointNumber;
+        final int integer = (int) floatingPointNumber;
 
         // TODO: Please change the result to pass the test.
         // <!--start
