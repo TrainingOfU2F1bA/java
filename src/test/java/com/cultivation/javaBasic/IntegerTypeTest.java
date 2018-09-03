@@ -129,7 +129,7 @@ class IntegerTypeTest {
 
         // TODO: please modify the following lines to pass the test
         // <!--start
-        final short expected = 0;
+        final short expected = 0x8000ffff & 0x01234567;
         // --end-->
 
         assertEquals(expected, smallerInteger);
