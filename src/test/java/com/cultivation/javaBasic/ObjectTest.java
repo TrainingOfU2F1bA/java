@@ -89,7 +89,7 @@ class ObjectTest {
         // TODO: please modify the following code to pass the test.
         // You can only choose from `sameReference` and `instanceCreatedByMethod`
         // <--start
-        final Object expected = null;
+        final Object expected = sameReference;
         // --end-->
 
         assertEquals(expected, objectReference);
