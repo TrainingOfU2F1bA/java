@@ -117,7 +117,7 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test. You should write the result directly.
         // <--start
-        final String expected = null;
+        final String expected ="methodWithOneParameter(Object)" ;
         // --end-->
 
         assertEquals(expected, actual);
