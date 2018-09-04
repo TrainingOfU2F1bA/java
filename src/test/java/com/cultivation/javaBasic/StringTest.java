@@ -182,7 +182,14 @@ class StringTest {
 
         // TODO: Modify the following code to create new string from original String
         // <--Start
-        final String reversed = null;
+        int k=0;
+        char[] chars = original.toCharArray();
+        for (int i = chars.length - 1; i >= 0&&i>k; i--) {
+            chars[i]^=chars[k];
+            chars[k]^=chars[i];
+            chars[i]^=chars[k++];
+        }
+        final String reversed = new String(chars);
         // --End-->
 
         assertEquals("654321", reversed);
