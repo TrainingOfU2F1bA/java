@@ -119,7 +119,7 @@ class StringTest {
 
         // TODO: Extract words in the sentence.
         // <--Start
-        String[] words = null;
+        String[] words = sentence.split("/") ;
         // --End-->
 
         assertArrayEquals(new String[] {"This", "is", "Mike"}, words);
