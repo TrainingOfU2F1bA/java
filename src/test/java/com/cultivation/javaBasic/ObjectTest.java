@@ -103,7 +103,7 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "Updated Name";
         // --end-->
 
         assertEquals(expected, instance.getName());
