@@ -133,7 +133,7 @@ class StringTest {
 
         // TODO: Create string using StringBuilder
         // <--Start
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder().append("|---|\n").append("|   |\n").append("|---|\n");
         // --End-->
 
         final String expected =
