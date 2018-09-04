@@ -160,7 +160,7 @@ class ObjectTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String[] expected = {};
+        final String[] expected = {"Field Initializer","Initialization Block","Constructor with argument","Default constructor"};
         // --end-->
 
         assertArrayEquals(expected, logs);
