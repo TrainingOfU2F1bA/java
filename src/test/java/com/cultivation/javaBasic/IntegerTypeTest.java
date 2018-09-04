@@ -3,10 +3,20 @@ package com.cultivation.javaBasic;
 import org.junit.jupiter.api.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class IntegerTypeTest {
+    @Test
+    void which_bit_is_sign() {
+        int y = 0x80000000;
+        for (int i = 1; i < 32; i++) {
+            assertTrue((y >> i) < 0);
+        }
+        int x = 0x40000000;
+        for (int i = 1; i < 31; i++) {
+            assertTrue((x >> i) > 0);
+        }
+    }
 
     @Test
     void should_get_range_of_primitive_int_type() {
@@ -123,13 +133,26 @@ class IntegerTypeTest {
     }
 
     @Test
+    void should_truncate_signbit_when_casting() {
+        final int integer = 0x8123_4567;
+        final short smallerInteger = (short) integer;
+
+        // TODO: please modify the following lines to pass the test
+        // <!--start
+        final short expected = 0x0000ffff & 0x81234567;
+        // --end-->
+
+        assertEquals(expected, smallerInteger);
+    }
+
+    @Test
     void should_truncate_number_when_casting() {
         final int integer = 0x0123_4567;
         final short smallerInteger = (short) integer;
 
         // TODO: please modify the following lines to pass the test
         // <!--start
-        final short expected = 0x8000ffff & 0x01234567;
+        final short expected = 0x0000ffff & 0x01234567;
         // --end-->
 
         assertEquals(expected, smallerInteger);
@@ -170,13 +193,13 @@ class IntegerTypeTest {
     private int add(int left, int right) {
         // TODO: Please implement the method. Adding two numbers.
         // The method should throw ArithmeticException if overflow or underflow happens.
-        if (Math.max(left, right) == Integer.MAX_VALUE && Math.min(left, right) > 0)
-            throw new ArithmeticException("Calculate underflow!");
-        if (Math.max(left, right) < 0 && Math.max(left, right) == Integer.MIN_VALUE)
+        int amount = left + right;
+        if (left < 0 && right < 0 && amount > 0)
             throw new ArithmeticException("Calculate overflow!");
-        return left + right;
+        if (left > 0 && right > 0 && amount < 0)
+            throw new ArithmeticException("Calculate underflow!");
+        return amount;
     }
-
     /*
      * The coach should ask the following questions to make the candidates be focused on the number representations:
      *

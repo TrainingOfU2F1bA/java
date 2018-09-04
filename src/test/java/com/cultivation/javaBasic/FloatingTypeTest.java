@@ -1,13 +1,8 @@
 package com.cultivation.javaBasic;
 
 import org.junit.jupiter.api.Test;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FloatingTypeTest {
     @Test
@@ -49,6 +44,30 @@ class FloatingTypeTest {
         assertEquals(expected, integer);
     }
 
+    @Test
+    void should_transfer_type_without_force_change() {
+        byte b=120;
+        int i=b;
+        double m=9l;
+        float p=0x7fffffffl;
+        byte ms= (byte) 1.0;
+        short s=0;
+        i=s;
+        s= (short) i;
+        s=b;
+        long l= (long) 9.0;
+        i= (int) 9.0f;
+        i= (int) 9l;
+        long mm=i;
+        int mms='s';
+    }
+
+    @Test
+    void should_be_two_when_rounding_2_49() {
+        double floatingPointNumber = 2.49;
+        assertTrue(2==Math.round(floatingPointNumber));
+    }
+
     @SuppressWarnings("unused")
     @Test
     void should_round_number() {
@@ -56,18 +75,21 @@ class FloatingTypeTest {
 
         // TODO: Please call some method to round the floating point number.
         // <!--start
-        final long rounded = getDoubleRounded(floatingPointNumber);
+        final long rounded = Math.round(floatingPointNumber);
         // --end-->
 
         assertEquals(3L, rounded);
     }
 
-    private long getDoubleRounded(double doubleValue) {
-        long longBits = Double.doubleToLongBits(doubleValue);
-        long isHalf = (longBits & 0x0004_0000_0000_0000l)>0?1l:0l;
-        long index = longBits & 0xfff0_0000_0000_0000l;
-        int sign = (longBits & 0x8000_0000_0000_0000l)!=0?-1:1;
-        return (long) (Double.longBitsToDouble(index)+sign*isHalf);
+    @Test
+    void should_unequals_between_two_nan() {
+        double nan1 = 0d / 0;
+        double nan2 = 0d / 0;
+        System.out.println(nan1);
+        System.out.println(Double.NaN);
+        System.out.println(nan2);
+        assertFalse(nan1==nan2);
+
     }
 
     @SuppressWarnings("unused")
