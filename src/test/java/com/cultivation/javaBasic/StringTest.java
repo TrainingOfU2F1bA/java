@@ -222,9 +222,9 @@ class StringTest {
         // TODO: please modify the following code to pass the test
         // <--start
         // TODO: please write down the result directly.
-        final int expectedCharLength = 0;
+        final int expectedCharLength = 39;
         // TODO: please call some method to calculate the result.
-        final int actualCodePointLength = 0;
+        final int actualCodePointLength =withSurrogatePairs.codePointCount(0,withSurrogatePairs.length());
         // --end-->
 
         assertEquals(expectedCharLength, withSurrogatePairs.length());
@@ -261,7 +261,14 @@ class StringTest {
     private int[] getCodePointsFromString(String withSurrogatePairs) {
         // TODO: please implement the method to the pass the test
         // <--start
-        throw new NotImplementedException();
+//        System.out.println(0xdf9f);
+//        int codePoints[]=new int[withSurrogatePairs.codePointCount(0,withSurrogatePairs.length())];
+//        for (int i = 0; i < withSurrogatePairs.length(); i++) {
+//            System.out.println(Integer.toHexString(withSurrogatePairs.codePointAt(i)));
+//            codePoints[i]=withSurrogatePairs.codePointAt(i);
+//        }
+//        return codePoints;
+        return withSurrogatePairs.codePoints().toArray();
         // --end-->
     }
 
