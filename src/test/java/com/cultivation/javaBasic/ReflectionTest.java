@@ -28,7 +28,7 @@ class ReflectionTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = employee.getClass().getName();
         // --end-->
 
         assertEquals(expected, employeeClass.getName());
