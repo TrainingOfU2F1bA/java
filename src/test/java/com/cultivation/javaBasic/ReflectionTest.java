@@ -2,6 +2,7 @@ package com.cultivation.javaBasic;
 
 import com.cultivation.javaBasic.util.Employee;
 import com.cultivation.javaBasic.util.MethodWithAnnotation;
+import com.cultivation.javaBasic.util.MyAnnotation;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Modifier;
@@ -105,7 +106,10 @@ class ReflectionTest {
 
         // TODO: please get the methods who contains MyAnnotation annotation.
         // <--start
-        String[] methodsContainsAnnotations = null;
+        String[] methodsContainsAnnotations = Arrays.stream(theClass.getMethods())
+                .filter(method -> method.isAnnotationPresent(MyAnnotation.class))
+                .map(method -> method.getName()).toArray(x->new String[x]);
+
         // --end-->
 
         assertArrayEquals(new String[] {"theMethod"}, methodsContainsAnnotations);
