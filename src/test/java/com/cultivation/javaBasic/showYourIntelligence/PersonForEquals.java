@@ -36,7 +36,7 @@ public class PersonForEquals {
     public boolean equals(Object obj) {
         // TODO: please modify the following code to pass the test
         // <--start
-        if (PersonForEquals.class.equals(obj.getClass())) {
+        if (obj!=null&&PersonForEquals.class.equals(obj.getClass())) {
             PersonForEquals person= (PersonForEquals) obj;
             if (name.equals(person.name) && yearOfBirth == person.yearOfBirth) {
                 return true;
