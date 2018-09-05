@@ -79,7 +79,7 @@ class ReflectionTest {
 
         // TODO: please get the value of `getTitle` method using reflection. No casting to Employee is allowed.
         // <--start
-        Object result = null;
+        Object result = Employee.class.getMethod("getTitle").invoke(employee);
         // --end-->
 
         assertEquals("Employee", result);
