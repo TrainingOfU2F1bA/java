@@ -92,7 +92,7 @@ class ReflectionTest {
 
         // TODO: please get the class of array item `employees`
         // <--start
-        Class<?> itemClass = null;
+        Class<?> itemClass = employees.getClass().getComponentType();
         // --end-->
 
         assertEquals(Employee.class, itemClass);
