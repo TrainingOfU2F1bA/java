@@ -4,6 +4,10 @@ import com.cultivation.javaBasic.util.Employee;
 import com.cultivation.javaBasic.util.MethodWithAnnotation;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.function.IntFunction;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -54,7 +58,8 @@ class ReflectionTest {
 
         // TODO: please get all public static declared methods of Double. Sorted in an ascending order
         // <--start
-        String[] publicStaticMethods = null;
+        String[] publicStaticMethods = Arrays.stream(doubleClass.getDeclaredMethods()).filter(method -> Modifier.isStatic(method.getModifiers())).map(method -> method.getName())
+                .sorted().toArray(x->new String[x]);
         // --end-->
 
         final String[] expected = {
