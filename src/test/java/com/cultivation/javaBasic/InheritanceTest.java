@@ -80,7 +80,7 @@ class InheritanceTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expectedName = null;
+        final String expectedName = "BaseClassForOverriding->DerivedFromBaseClassForOverridingCallingSuper";
         // --end-->
 
         assertEquals(expectedName, instance.getName());
