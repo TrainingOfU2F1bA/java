@@ -141,9 +141,9 @@ class InheritanceTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final Optional<Boolean> expectedResult1 = Optional.empty();
-        final Optional<Boolean> expectedResult2 = Optional.empty();
-        final Optional<Boolean> expectedResult3 = Optional.empty();
+        final Optional<Boolean> expectedResult1 = Optional.of(true);
+        final Optional<Boolean> expectedResult2 = Optional.of(true);
+        final Optional<Boolean> expectedResult3 = Optional.of(true);
         // --end-->
 
         assertEquals(expectedResult1.get(), nested instanceof NestedDerivedClassWithName);
