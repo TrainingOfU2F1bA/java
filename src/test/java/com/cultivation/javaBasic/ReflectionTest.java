@@ -15,7 +15,7 @@ class ReflectionTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final Class<? extends Employee> expected = null;
+        final Class<? extends Employee> expected = Employee.class;
         // --end-->
 
         assertEquals(expected, employeeClass);
