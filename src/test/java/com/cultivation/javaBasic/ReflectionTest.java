@@ -41,7 +41,7 @@ class ReflectionTest {
 
         // TODO: please created an instance described by `theClass`
         // <--start
-        Employee instance = null;
+        Employee instance = (Employee) theClass.newInstance();
         // --end-->
 
         assertEquals("Employee", instance.getTitle());
