@@ -72,4 +72,17 @@ class BooleanOperatorsTest {
 
         assertEquals(expected, ~value);
     }
+
+    @Test
+    void test_priority_of_bit_operator() {
+        assertEquals(0xffff0000,~0x0000ffff|0xffff0000);//~ is prior than |
+        assertEquals(0x00000000,~(0x0000ffff|0xffff0000));
+
+        assertEquals(0xffff0000,~0x0000ffff&0xffff0000);//~ is prior than &
+        assertEquals(0xffffffff,~(0x0000ffff&0xffff0000));
+
+        assertEquals(0b001,0b001|0b101&0b000);//& is prior than |
+        assertEquals(0b000,(0b001|0b101)&0b000);
+
+    }
 }

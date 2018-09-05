@@ -17,6 +17,10 @@ public class InitializationOrderClass {
 
     private final Object field = initField();
 
+    {
+        logger.add("1Initialization Block");
+    }
+
     private Object initField() {
         logger.add("Field Initializer");
         return null;

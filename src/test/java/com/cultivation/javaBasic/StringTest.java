@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -69,11 +70,10 @@ class StringTest {
 
         // TODO: Take part of the original string according to expectation.
         // <--start
-        final String partOfString = originalString.replace("Java ","");
+        final String partOfString = originalString.replace("Java ", "");
         // --end-->
 
         final String expectedString = "is great";
-
         assertEquals(expectedString, partOfString);
     }
 
@@ -84,7 +84,7 @@ class StringTest {
 
         // TODO: Take part of the original string according to expectation.
         // <--start
-        final String partOfString = originalString.replace("Java ","").replace(" great.","");
+        final String partOfString = originalString.replace("Java ", "").replace(" great.", "");
         // --end-->
 
         final String expectedString = "is";
@@ -110,7 +110,7 @@ class StringTest {
         String[] words = sentence.split(" ");
         // --End-->
 
-        assertArrayEquals(new String[] {"This", "is", "Mike"}, words);
+        assertArrayEquals(new String[]{"This", "is", "Mike"}, words);
     }
 
     @SuppressWarnings({"unused", "ConstantConditions"})
@@ -120,10 +120,10 @@ class StringTest {
 
         // TODO: Extract words in the sentence.
         // <--Start
-        String[] words = sentence.split("/") ;
+        String[] words = sentence.split("/");
         // --End-->
 
-        assertArrayEquals(new String[] {"This", "is", "Mike"}, words);
+        assertArrayEquals(new String[]{"This", "is", "Mike"}, words);
     }
 
     @SuppressWarnings({"unused", "StringBufferReplaceableByString", "MismatchedQueryAndUpdateOfStringBuilder"})
@@ -134,14 +134,21 @@ class StringTest {
 
         // TODO: Create string using StringBuilder
         // <--Start
-        StringBuilder builder = new StringBuilder().append("|---|\n").append("|   |\n").append("|---|\n");
+//        StringBuilder builder = new StringBuilder().append("|---|\n").append("|   |\n").append("|---|\n");
+        StringBuilder builder = new StringBuilder();
+        for (int k = 0; k < height; k++) {
+            for (int i = 0; i < width; i++)
+                if (i == 0 || i == width - 1) builder.append("|");
+                else if (k != 0 && k != height - 1) builder.append(" ");
+                else builder.append("-");
+            builder.append("\n");
+        }
         // --End-->
 
         final String expected =
-            "|---|\n" +
-            "|   |\n" +
-            "|---|\n";
-
+                "|---|\n" +
+                        "|   |\n" +
+                        "|---|\n";
         assertEquals(expected, builder.toString());
     }
 
@@ -169,7 +176,7 @@ class StringTest {
         // こ - U+3053
         // れ - U+308c
         // <--Start
-        final String actual ="\u306a\u306b\u3053\u308c" ;
+        final String actual = "\u306a\u306b\u3053\u308c";
         // --End-->
 
         assertEquals(expected, actual);
@@ -182,17 +189,29 @@ class StringTest {
 
         // TODO: Modify the following code to create new string from original String
         // <--Start
-        int k=0;
+        int k = 0;
         char[] chars = original.toCharArray();
-        for (int i = chars.length - 1; i >= 0&&i>k; i--) {
-            chars[i]^=chars[k];
-            chars[k]^=chars[i];
-            chars[i]^=chars[k++];
+        for (int i = chars.length - 1; i >= 0 && i > k; i--) {
+            chars[i] ^= chars[k];
+            chars[k] ^= chars[i];
+            chars[i] ^= chars[k++];
         }
         final String reversed = new String(chars);
         // --End-->
 
         assertEquals("654321", reversed);
+    }
+
+    @Test
+    void change_chars_in_final_char_array() {
+        final char[] chars = {'a','b','c'};
+        int k=0;
+        for (int i = chars.length - 1; i >= 0 && i > k; i--) {
+            chars[i] ^= chars[k];
+            chars[k] ^= chars[i];
+            chars[i] ^= chars[k++];
+        }
+        assertEquals("cba",new String(chars));
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -217,14 +236,14 @@ class StringTest {
     @Test
     void should_get_code_point_count() {
         final String withSurrogatePairs =
-            new String(Character.toChars(0x20B9F)) + " is a character that you may not know";
+                new String(Character.toChars(0x20B9F)) + " is a character that you may not know";
 
         // TODO: please modify the following code to pass the test
         // <--start
         // TODO: please write down the result directly.
         final int expectedCharLength = 39;
         // TODO: please call some method to calculate the result.
-        final int actualCodePointLength =withSurrogatePairs.codePointCount(0,withSurrogatePairs.length());
+        final int actualCodePointLength = withSurrogatePairs.codePointCount(0, withSurrogatePairs.length());
         // --end-->
 
         assertEquals(expectedCharLength, withSurrogatePairs.length());
@@ -234,13 +253,13 @@ class StringTest {
     @Test
     void should_copy_all_code_point_to_array() {
         final String withSurrogatePairs =
-            new String(Character.toChars(0x20B9F)) + " is funny";
+                new String(Character.toChars(0x20B9F)) + " is funny";
 
         final int[] codePoints = getCodePointsFromString(withSurrogatePairs);
 
         assertArrayEquals(
-            new int[] {0x20B9F, (int)' ', (int)'i', (int)'s', (int)' ', (int)'f', (int)'u', (int)'n', (int)'n', (int)'y'},
-            codePoints);
+                new int[]{0x20B9F, (int) ' ', (int) 'i', (int) 's', (int) ' ', (int) 'f', (int) 'u', (int) 'n', (int) 'n', (int) 'y'},
+                codePoints);
     }
 
     @Test
@@ -249,10 +268,12 @@ class StringTest {
         final int age = 23;
 
         String text = String.format("Hello, %s. Next year, you will be %d.", name, age);
+        String text1 = String.format("Hello, %f. Next year, you will be %e.", 19.232112321, 21321083.0);
+        System.out.println(text1);
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expectedText ="Hello, Harry. Next year, you will be 23.";
+        final String expectedText = "Hello, Harry. Next year, you will be 23.";
         // --end-->
 
         assertEquals(expectedText, text);
