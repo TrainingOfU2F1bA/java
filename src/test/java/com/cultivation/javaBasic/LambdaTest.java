@@ -94,7 +94,7 @@ class LambdaTest {
 
         // TODO: please write down the expected string directly.
         // <--start
-        final String expected = null;
+        final String expected = "In the year 2019";
         // --end-->
 
         assertEquals(expected, message);
