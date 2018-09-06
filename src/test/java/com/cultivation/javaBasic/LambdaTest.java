@@ -80,7 +80,7 @@ class LambdaTest {
 
         // TODO: please write down the expected string directly.
         // <--start
-        final String expected = null;
+        final String expected =  "The length of captured value is: 4";
         // --end-->
 
         value.setValue("Blah");
