@@ -5,6 +5,7 @@ import com.cultivation.javaBasic.util.MethodWithAnnotation;
 import com.cultivation.javaBasic.util.MyAnnotation;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.function.IntFunction;
@@ -59,8 +60,10 @@ class ReflectionTest {
 
         // TODO: please get all public static declared methods of Double. Sorted in an ascending order
         // <--start
-        String[] publicStaticMethods = Arrays.stream(doubleClass.getDeclaredMethods()).filter(method -> Modifier.isStatic(method.getModifiers())).map(method -> method.getName())
-                .sorted().toArray(x->new String[x]);
+        String[] publicStaticMethods = Arrays.stream(doubleClass.getDeclaredMethods())
+                .filter(method -> Modifier.isStatic(method.getModifiers()))
+                .map(Method::getName)
+                .sorted().toArray(String[]::new);
         // --end-->
 
         final String[] expected = {
@@ -108,16 +111,17 @@ class ReflectionTest {
         // <--start
         String[] methodsContainsAnnotations = Arrays.stream(theClass.getMethods())
                 .filter(method -> method.isAnnotationPresent(MyAnnotation.class))
-                .map(method -> method.getName()).toArray(x->new String[x]);
+                .map(Method::getName)
+                .toArray(String[]::new);
 
         // --end-->
-
         assertArrayEquals(new String[] {"theMethod"}, methodsContainsAnnotations);
     }
 }
 
 /*
  * - What is the class name of array type?
+ * Link:https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html#jvms-4.3.2
  * - How to compare 2 classes?
  * - What if the class does not contain a default constructor when you call `newInstance()`?
  * - What is source only annotation? Can we get source only annotations via reflection?

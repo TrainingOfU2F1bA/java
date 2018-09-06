@@ -282,14 +282,15 @@ class StringTest {
     private int[] getCodePointsFromString(String withSurrogatePairs) {
         // TODO: please implement the method to the pass the test
         // <--start
-//        System.out.println(0xdf9f);
-//        int codePoints[]=new int[withSurrogatePairs.codePointCount(0,withSurrogatePairs.length())];
-//        for (int i = 0; i < withSurrogatePairs.length(); i++) {
-//            System.out.println(Integer.toHexString(withSurrogatePairs.codePointAt(i)));
-//            codePoints[i]=withSurrogatePairs.codePointAt(i);
-//        }
-//        return codePoints;
-        return withSurrogatePairs.codePoints().toArray();
+        int codePoints[]=new int[withSurrogatePairs.codePointCount(0,withSurrogatePairs.length())];
+        int m=0;
+        for (int i = 0; i < codePoints.length; i++) {
+            codePoints[i]= withSurrogatePairs.codePointAt(m);
+            if ((codePoints[i] > 0x007f) && (codePoints[i] <= 0x01111111)) m++;
+            m++;
+        }
+        return codePoints;
+//        return withSurrogatePairs.codePoints().toArray();
         // --end-->
     }
 
