@@ -1,5 +1,7 @@
 package com.cultivation.javaBasic;
 
+import com.cultivation.Father;
+import com.cultivation.Son;
 import com.cultivation.javaBasic.showYourIntelligence.PersonForEquals;
 import com.cultivation.javaBasic.util.*;
 import org.junit.jupiter.api.Test;
@@ -89,23 +91,18 @@ class InheritanceTest {
     @SuppressWarnings({"ConstantConditions", "RedundantCast", "UnnecessaryLocalVariable"})
     @Test
     void should_use_caution_when_dealing_with_array_type() {
-        DerivedFromSuperClassWithDefaultConstructor[] array = new DerivedFromSuperClassWithDefaultConstructor[4];
-        SuperClassWithDefaultConstructor[] arrayWithBaseType = (SuperClassWithDefaultConstructor[])array;
+        Son sons[]= new Son[4];
+        Father[] fathers= (Father[]) sons;
 
-        boolean willThrow = false;
+        boolean willThrow = true;
 
         try {
-            arrayWithBaseType[arrayWithBaseType.length - 1] = new SuperClassWithDefaultConstructor();
-        } catch (Exception error) {
-            willThrow = true;
+            fathers[3] = new Father();
+        } catch (Exception e) {
+            willThrow = false;
         }
 
-        // TODO: please modify the following code to pass the test
-        // <--start
-        final Optional<Boolean> expected = Optional.of(true);
-        // --end-->
-
-        assertEquals(expected.get(), willThrow);
+        assertFalse(willThrow);
     }
 
     @SuppressWarnings("UnnecessaryLocalVariable")

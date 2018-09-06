@@ -34,16 +34,20 @@ public class PersonForEquals {
     @SuppressWarnings("Contract")
     @Override
     public boolean equals(Object obj) {
-        // TODO: please modify the following code to pass the test
-        // <--start
-        if (obj!=null&&PersonForEquals.class.equals(obj.getClass())) {
-            PersonForEquals person= (PersonForEquals) obj;
-            if (name.equals(person.name) && yearOfBirth == person.yearOfBirth) {
-                return true;
-            }
+        if (obj==this) {
+            return true;
+        }
+        if (obj==null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())){
+            return false;
+        }
+        PersonForEquals person=(PersonForEquals) obj;
+        if (name.equals(person.getName()) && yearOfBirth==person.getYearOfBirth()) {
+            return true;
         }
         return false;
-        // --end-->
     }
 
     @Override

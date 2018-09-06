@@ -1,23 +1,35 @@
 package com.cultivation.javaBasic;
 
-import com.cultivation.javaBasic.util.Employee;
-import com.cultivation.javaBasic.util.MethodWithAnnotation;
-import com.cultivation.javaBasic.util.MyAnnotation;
+import com.cultivation.Father;
+import com.cultivation.Son;
+import com.cultivation.SonAnnotation;
+import com.cultivation.javaBasic.util.*;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.IntFunction;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ReflectionTest {
+    @Test
+    void array_of_subclass_is_not_subclass_of_array_of_superclass() {
+        DerivedFromSuperClassWithDefaultConstructor[] array = new DerivedFromSuperClassWithDefaultConstructor[4];
+        SuperClassWithDefaultConstructor[] array1 = new SuperClassWithDefaultConstructor[6];
+        assertTrue(array instanceof SuperClassWithDefaultConstructor[]);
+        assertFalse(array1 instanceof DerivedFromSuperClassWithDefaultConstructor[]);
+        assertNotEquals(SuperClassWithDefaultConstructor[].class, DerivedFromSuperClassWithDefaultConstructor[].class);
+    }
+
     @Test
     void should_be_able_to_get_class_object() {
         Employee employee = new Employee();
         Class<? extends Employee> employeeClass = employee.getClass();
+
 
         // TODO: please modify the following code to pass the test
         // <--start
@@ -60,17 +72,23 @@ class ReflectionTest {
 
         // TODO: please get all public static declared methods of Double. Sorted in an ascending order
         // <--start
-        String[] publicStaticMethods = Arrays.stream(doubleClass.getDeclaredMethods())
-                .filter(method -> Modifier.isStatic(method.getModifiers()))
-                .map(Method::getName)
-                .sorted().toArray(String[]::new);
+        Method[] methods = doubleClass.getDeclaredMethods();
+        ArrayList<String> list = new ArrayList<>();
+        for (Method method : methods) {
+            int modifiers = method.getModifiers();
+            if (Modifier.isPublic(modifiers) && Modifier.isStatic(modifiers)) {
+                list.add(method.getName());
+            }
+        }
+        list.sort(String::compareTo);
+        String publicStaticMethods[] =list.toArray(new String[0]);
         // --end-->
 
         final String[] expected = {
-            "compare", "doubleToLongBits", "doubleToRawLongBits", "hashCode",
-            "isFinite", "isInfinite", "isNaN", "longBitsToDouble", "max",
-            "min", "parseDouble", "sum", "toHexString", "toString", "valueOf",
-            "valueOf"
+                "compare", "doubleToLongBits", "doubleToRawLongBits", "hashCode",
+                "isFinite", "isInfinite", "isNaN", "longBitsToDouble", "max",
+                "min", "parseDouble", "sum", "toHexString", "toString", "valueOf",
+                "valueOf"
         };
 
         assertArrayEquals(expected, publicStaticMethods);
@@ -105,17 +123,24 @@ class ReflectionTest {
     @SuppressWarnings({"ConstantConditions", "unused"})
     @Test
     void should_be_able_to_get_the_methods_who_contains_MyAnnotation_annotation() {
-        Class<MethodWithAnnotation> theClass = MethodWithAnnotation.class;
+        List<String> methodsNames = new ArrayList<>();
+        for (Method method : Son.class.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(SonAnnotation.class)) {
+                methodsNames.add(method.getName());
+            }
+        }
+        assertArrayEquals(new String[]{"iAmSon"},methodsNames.toArray());
+    }
 
-        // TODO: please get the methods who contains MyAnnotation annotation.
-        // <--start
-        String[] methodsContainsAnnotations = Arrays.stream(theClass.getMethods())
-                .filter(method -> method.isAnnotationPresent(MyAnnotation.class))
-                .map(Method::getName)
-                .toArray(String[]::new);
+    @Test
+    void fatherClass_of_arrayofSubclass_is_not_arrayofFatherclass() {
+        assertNotEquals(Father[].class,Son[].class.getSuperclass());
+        assertEquals(Object.class,Son[].class.getSuperclass());
+    }
 
-        // --end-->
-        assertArrayEquals(new String[] {"theMethod"}, methodsContainsAnnotations);
+    @Test
+    void fatherClass_of_component_of_arrayofSubclass_is_component_arrayofFatherclass() {
+        assertEquals(Father[].class.getComponentType(),Son[].class.getComponentType().getSuperclass());
     }
 }
 
