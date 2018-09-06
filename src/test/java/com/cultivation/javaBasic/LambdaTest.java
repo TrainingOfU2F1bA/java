@@ -36,7 +36,7 @@ class LambdaTest {
     void should_be_able_to_bind_to_static_method() {
         // TODO: please bind lambda to staticMethod
         // <--start
-        StringFunc lambda = null;
+        StringFunc lambda = ()->staticMethod();
         // --end-->
 
         assertEquals("staticMethod", lambda.getString());
