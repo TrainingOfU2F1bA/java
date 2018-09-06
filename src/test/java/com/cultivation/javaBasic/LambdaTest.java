@@ -65,7 +65,7 @@ class LambdaTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "5 has been captured." ;
         // --end-->
 
         assertEquals(expected, message);
