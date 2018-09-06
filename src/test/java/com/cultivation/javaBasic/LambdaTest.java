@@ -47,7 +47,7 @@ class LambdaTest {
     void should_bind_to_constructor() {
         // TODO: please bind lambda to constructor of ArrayList<Integer>
         // <--start
-        GenericFunc<ArrayList<Integer>> lambda = null;
+        GenericFunc<ArrayList<Integer>> lambda = () -> new ArrayList<>() ;
         // --end-->
 
         ArrayList<Integer> value = lambda.getValue();
