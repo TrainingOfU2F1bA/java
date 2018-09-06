@@ -25,7 +25,7 @@ class LambdaTest {
     void should_be_able_to_bind_to_instance_method() {
         // TODO: please bind lambda to instanceMethod.
         // <--start
-        StringFunc lambda = null;
+        StringFunc lambda = () -> this.instanceMethod();
         // --end-->
 
         assertEquals("instanceMethod", lambda.getString());
