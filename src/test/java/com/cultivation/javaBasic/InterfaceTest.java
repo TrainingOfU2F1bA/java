@@ -14,7 +14,7 @@ class InterfaceTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "The truth of the universe is 42" ;
         // --end-->
 
         assertEquals(expected, instance.tellMeTheTruthOfTheUniverse());
