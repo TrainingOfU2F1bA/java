@@ -14,7 +14,7 @@ class LambdaTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expect = null;
+        final String expect = "Hello" ;
         // --end-->
 
         assertEquals(expect, lambda.getString());
