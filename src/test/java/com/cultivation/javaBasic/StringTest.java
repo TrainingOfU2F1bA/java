@@ -286,7 +286,15 @@ class StringTest {
         int m=0;
         for (int i = 0; i < codePoints.length; i++) {
             codePoints[i]= withSurrogatePairs.codePointAt(m);
-            if ((codePoints[i] > 0x007f) && (codePoints[i] <= 0x01111111)) m++;
+//            if ((codePoints[i] > 0x007f)) m++;
+//            System.out.println("is hight?:"+((char)withSurrogatePairs.codePointAt(m)>'\udc00')+" "+((char)withSurrogatePairs.codePointAt(m)<'\uDfFF'));
+            if ((codePoints[i] > '\uD800')) {
+                m++;
+                System.out.println("is low? :"+(withSurrogatePairs.codePointAt(m)>'\udc00')+" "+(withSurrogatePairs.codePointAt(m)<'\uDfFF'));
+            }
+//            System.out.println(Integer.toHexString(codePoints[i]));
+//            if ((codePoints[i] > '\uDC00') && (codePoints[i] <= '\uDFFF')) System.out.println(true);
+//            else System.out.println(false);
             m++;
         }
         return codePoints;

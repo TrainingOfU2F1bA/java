@@ -1,10 +1,11 @@
 package com.cultivation.javaBasic;
 
+import com.cultivation.MyCloneClass;
 import com.cultivation.javaBasic.showYourIntelligence.NameImpl;
 import com.cultivation.javaBasic.util.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class InterfaceTest {
 
@@ -47,10 +48,21 @@ class InterfaceTest {
     @Test
     void should_resolve_ambiguity_by_yourself() {
         NameImpl instance = new NameImpl();
-
         String name = instance.getName();
 
         assertEquals("Person", name);
+    }
+
+    @Test
+    void clone_an_object_without_a_default_constructor() throws CloneNotSupportedException {
+        String testString = "MyCloneClass";
+        MyCloneClass myCloneClass = new MyCloneClass(new String("MyCloneClass"));
+        MyCloneClass clone = (MyCloneClass) myCloneClass.clone();
+        assertNotEquals(myCloneClass,clone);
+        assertEquals(myCloneClass.getName(),clone.getName());
+        assertTrue(myCloneClass.getName()==clone.getName());
+        assertFalse(testString ==clone.getName());
+        System.out.println(MyAnnotation.class);
     }
 }
 
