@@ -30,6 +30,7 @@ public class PosMachine {
     public String printReceipt(String barcodeContent) throws IOException {
         // TODO: please implement the following method to pass the test
         // <--start
+        if (collect == null) throw new IllegalStateException();
         String line = System.lineSeparator();
         StringBuilder receipt = new StringBuilder("Receipts" + line + "------------------------------------------------------------" + line);
         int amountPrice = 0;
