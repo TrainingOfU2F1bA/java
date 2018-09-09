@@ -16,7 +16,7 @@ class Matrix {
     public Matrix(int[][] matrixArray) {
         // TODO: please implement the constructor of a matrix.
         // <--start
-        throw new NotImplementedException();
+        throw new IllegalArgumentException("Raw matrix is null");
         // --end-->
     }
 
