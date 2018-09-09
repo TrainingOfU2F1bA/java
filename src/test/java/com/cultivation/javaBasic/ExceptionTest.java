@@ -43,7 +43,7 @@ class ExceptionTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final int expectedResult = Integer.MAX_VALUE;
+        final int expectedResult = 0;
         // --end-->
 
         assertEquals(expectedResult, confusedResult);
