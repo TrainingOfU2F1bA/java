@@ -33,8 +33,17 @@ class Matrix {
         // TODO: please implement the method to pass the tests.
         // <--start
         if (left==null||right==null) throw new IllegalArgumentException("input matrix is null");
-        if (left.storage[0].length!=right.storage.length)  throw new IllegalArgumentException("should throws if matrix dimension not correct");
-        return null;
+        if (left.columns()!=right.rows())  throw new IllegalArgumentException("should throws if matrix dimension not correct");
+        Matrix result = new Matrix(new int[left.rows()][right.columns()]);
+        for (int i = 0; i < left.rows(); i++) {
+            int[] row = left.getRow(i);
+            for (int k = 0; k < right.columns(); k++) {
+                for (int index = 0; index < row.length; index++) {
+                    result.storage[i][k] += row[index] * right.storage[index][k];
+                }
+            }
+        }
+        return result;
         // --end-->
     }
 
