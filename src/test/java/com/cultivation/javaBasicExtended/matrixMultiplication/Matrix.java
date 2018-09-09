@@ -23,6 +23,7 @@ class Matrix {
             if (ints.length==0) {
                 throw new IllegalArgumentException("At least one row of raw matrix contains 0 column");
             }
+            if (matrixArray[0].length!=ints.length) throw new IllegalArgumentException("Raw matrix is not rectangle");
         }
             storage=matrixArray;
         // --end-->
