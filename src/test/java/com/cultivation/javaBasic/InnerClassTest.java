@@ -49,7 +49,7 @@ class InnerClassTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final Optional<Integer> expected = Optional.empty();
+        final Optional<Integer> expected = Optional.of(2019);
         // --end-->
 
         assertEquals(expected.get().intValue(), instance.getYear());
