@@ -18,8 +18,12 @@ class Matrix {
         // <--start
         if (matrixArray==null) throw new IllegalArgumentException("Raw matrix is null");
         if (matrixArray.length==0) throw new IllegalArgumentException("Raw matrix contains 0 row");
-        for (int[] ints : matrixArray)
+        for (int[] ints : matrixArray) {
             if (ints == null) throw new IllegalArgumentException("Raw matrix contains null row");
+            if (ints.length==0) {
+                throw new IllegalArgumentException("At least one row of raw matrix contains 0 column");
+            }
+        }
             storage=matrixArray;
         // --end-->
     }
