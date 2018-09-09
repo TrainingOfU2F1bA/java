@@ -9,13 +9,5 @@ public interface InterfaceWithDefaultMethod {
     default String getTheTruthOfTheUniverse() {
         return "42";
     }
-
-    public static void he(String[] args) {
-        System.out.println("he");
-    }
-
-    public static void main(String[] args) {
-
-    }
 }
 
