@@ -7,7 +7,7 @@ public class StringFormatException extends Exception {
     public StringFormatException(String message) {
         // TODO: please modify the following code to pass the test
         // <--start
-        throw new NotImplementedException();
+        super(message);
         // --end-->
     }
 
