@@ -32,7 +32,8 @@ class Matrix {
     public static Matrix multiply(Matrix left, Matrix right) {
         // TODO: please implement the method to pass the tests.
         // <--start
-        throw new NotImplementedException();
+        if (left==null||right==null) throw new IllegalArgumentException("input matrix is null");
+        return null;
         // --end-->
     }
 
