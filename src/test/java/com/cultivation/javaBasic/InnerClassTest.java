@@ -76,7 +76,8 @@ class InnerClassTest {
 
         // TODO: please modify the following code to pass the test
         // <--start
-        final String expected = null;
+        final String expected = "Hello";
+
         // --end-->
 
         assertEquals(expected, inner.getName());
