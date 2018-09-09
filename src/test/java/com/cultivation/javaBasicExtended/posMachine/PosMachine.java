@@ -1,11 +1,6 @@
 package com.cultivation.javaBasicExtended.posMachine;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.core.FormatSchema;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -16,13 +11,18 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"WeakerAccess", "unused", "RedundantThrows"})
 public class PosMachine {
 
-    private Map<String, Product> collect;
+    public static final String LINE = System.lineSeparator();
+    public static final String RECIEPT_BOTTOM = "------------------------------------------------------------\nPrice: %s\n";
+    public static final String RECIEPT_HEADER = "Receipts" + LINE + "------------------------------------------------------------" + LINE;
+    public static final String ONE_LINE_OF_RPODUCT_CONTENT = "%s                      %d          %d\n";
+
+    private Map<String, Product> productSet;
 
     public void readDataSource(Reader reader) throws IOException {
         // TODO: please implement the following method to pass the test
         // <--start
         ObjectMapper mapper = new ObjectMapper();
-        collect = mapper.<List<Product>>readValue(reader, new TypeReference<List<Product>>() { }) .stream()
+        productSet = mapper.<List<Product>>readValue(reader, new TypeReference<List<Product>>() { }) .stream()
                 .collect(Collectors.toMap(Product::getId, product -> product));
         // --end-->
     }
@@ -30,37 +30,57 @@ public class PosMachine {
     public String printReceipt(String barcodeContent) throws IOException {
         // TODO: please implement the following method to pass the test
         // <--start
-        if (collect == null) throw new IllegalStateException();
-        String line = System.lineSeparator();
-        StringBuilder receipt = new StringBuilder("Receipts" + line + "------------------------------------------------------------" + line);
-        int amountPrice = 0;
+        if (productSet == null) throw new IllegalStateException();
+
+        StringBuilder receipt = new StringBuilder().append(RECIEPT_HEADER);
+
+        HashMap<String, Integer> amountMap = new HashMap<>();
+
         if (barcodeContent != null && !barcodeContent.equals("[]")) {
-            String[] strings = barcodeContent.replaceAll("\"|\\[|\\]", "").split(",");
-            HashMap<String, Integer> amountMap = new HashMap<>();
-            ArrayList<String> receiptList = new ArrayList<>();
-            for (String productId:strings) {
-                Product product = collect.get(productId);
-                if (product.getId().equals(productId)) {
-                    amountMap.compute(productId,(k,v)->{
-                        if (v == null) return product.getPrice();
-                        else return v+product.getPrice();
-                    });
-                }
-            }
-            String[] productIdArray = Arrays.stream(strings).distinct().toArray(String[]::new);
-            for (String productId:productIdArray) {
-                String name = collect.get(productId).getName();
-                amountPrice += amountMap.get(productId);
-                Integer singlePrice = collect.get(productId).getPrice();
-                receipt.append(String.format("%s                      %d          %d\n"
-                        , name.length() < 10?(name+" "):name
-                        , singlePrice
-                        , amountMap.get(productId)/ singlePrice));
-            }
+            String[] productIdArray = getProductIdArray(barcodeContent);
+            calculateTotalPriceofOneProduct(productIdArray, amountMap);
+            printContentofProduct(receipt, productIdArray, amountMap);
         }
-        receipt.append("------------------------------------------------------------" + line + "Price: "+amountPrice + line);
+
+        receipt.append(String.format(RECIEPT_BOTTOM, getAmountPrice(amountMap)));
+
         return receipt.toString();
         // --end-->
+    }
+
+    private int getAmountPrice(HashMap<String, Integer> amountMap) {
+        return amountMap.values().stream().mapToInt(x->x).sum();
+    }
+
+    private String[] getProductIdArray(String barcodeContent) {
+        return barcodeContent.replaceAll("\"|\\[|\\]", "").split(",");
+    }
+
+    private void printContentofProduct(StringBuilder receipt, String[] strings, HashMap<String, Integer> amountMap) {
+        String[] productIdArray = Arrays.stream(strings).distinct().toArray(String[]::new);
+        Arrays.stream(productIdArray)
+                .map(productId-> productSet.get(productId))
+                .forEach(product->
+                generateSingleContent(receipt, amountMap, product, product.getName(), product.getPrice() )
+        );
+    }
+
+    private void generateSingleContent(StringBuilder receipt, HashMap<String, Integer> amountMap, Product product, String productName, Integer singlePrice) {
+        receipt.append(String.format(ONE_LINE_OF_RPODUCT_CONTENT
+                , formatName(productName)
+                , singlePrice
+                , amountMap.get(product.getId()) / singlePrice));
+    }
+
+    private String formatName(String productName) {
+        return productName.length() < 10 ? (productName + " ") : productName;
+    }
+
+    private void calculateTotalPriceofOneProduct(String[] strings, HashMap<String, Integer> amountMap) {
+        Arrays.stream(strings).map(productSet::get).forEach(
+                product-> amountMap.compute( product.getId(),
+                        (k, v) -> (v == null?0:v) + product.getPrice()
+                ));
     }
 }
 
