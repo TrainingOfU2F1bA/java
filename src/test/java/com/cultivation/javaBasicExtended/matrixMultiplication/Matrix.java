@@ -16,6 +16,7 @@ class Matrix {
     public Matrix(int[][] matrixArray) {
         // TODO: please implement the constructor of a matrix.
         // <--start
+    if (matrixArray.length==0) throw new IllegalArgumentException("Raw matrix contains 0 row");
         throw new IllegalArgumentException("Raw matrix is null");
         // --end-->
     }
