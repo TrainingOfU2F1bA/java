@@ -33,6 +33,7 @@ class Matrix {
         // TODO: please implement the method to pass the tests.
         // <--start
         if (left==null||right==null) throw new IllegalArgumentException("input matrix is null");
+        if (left.storage[0].length!=right.storage.length)  throw new IllegalArgumentException("should throws if matrix dimension not correct");
         return null;
         // --end-->
     }
