@@ -14,7 +14,7 @@ public class PosMachine {
     public static final String LINE = System.lineSeparator();
     public static final String RECIEPT_BOTTOM = "------------------------------------------------------------\nPrice: %s\n";
     public static final String RECIEPT_HEADER = "Receipts" + LINE + "------------------------------------------------------------" + LINE;
-    public static final String ONE_LINE_OF_RPODUCT_CONTENT = "%s                      %d          %d\n";
+    public static final String ONE_LINE_OF_RPODUCT_CONTENT = "                                %d          %d\n";
 
     private Map<String, Product> productSet;
 
@@ -65,21 +65,20 @@ public class PosMachine {
         );
     }
 
-    private void generateSingleContent(StringBuilder receipt, HashMap<String, Integer> amountMap, Product product, String productName, Integer singlePrice) {
-        receipt.append(String.format(ONE_LINE_OF_RPODUCT_CONTENT
-                , formatName(productName)
-                , singlePrice
-                , amountMap.get(product.getId()) / singlePrice));
+    private void generateSingleContent(StringBuilder receipt, HashMap<String, Integer> amountMap, Product product, String productName, Integer unitPrice) {
+        receipt.append(String.format(linkProductName(productName)
+                , unitPrice
+                , amountMap.get(product.getId()) / unitPrice));
     }
 
-    private String formatName(String productName) {
-        return productName.length() < 10 ? (productName + " ") : productName;
+    private String linkProductName(String productName) {
+        return productName+ONE_LINE_OF_RPODUCT_CONTENT.substring(productName.length());
     }
 
-    private void calculateTotalPriceofOneProduct(String[] strings, HashMap<String, Integer> amountMap) {
-        Arrays.stream(strings).map(productSet::get).forEach(
+    private void calculateTotalPriceofOneProduct(String[] productIdList, HashMap<String, Integer> amountMap) {
+        Arrays.stream(productIdList).map(productSet::get).forEach(
                 product-> amountMap.compute( product.getId(),
-                        (k, v) -> (v == null?0:v) + product.getPrice()
+                        (key, value) -> (value == null?0:value) + product.getPrice()
                 ));
     }
 }
