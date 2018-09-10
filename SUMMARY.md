@@ -109,7 +109,7 @@ java 8中default和静态方法是可以有实现代码的,且可有有多个
 
 接口中可以有嵌入式类型
 
-接口中除去default和静态方法，其他的方法默认都是abstract，且必须是public(jsl 9.4)，非嵌入式接口本身页也必须是public (9.1.1)
+接口中除去default和静态方法，其他的方法默认都是abstract，且必须是public(jsl 9.4)，非嵌入式接口本身也是public或private-package(默认) (9.1.1)
 
 一个接口可以继承多个接口，但是不能继承父类接口的static方法
 (jsl 9.4.1)
