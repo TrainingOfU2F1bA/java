@@ -1,5 +1,6 @@
 package com.cultivation.javaBasic;
 
+import com.cultivation.MyFunction;
 import org.junit.jupiter.api.Test;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
